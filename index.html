@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Киберспорт Мелитополь</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM6YfHj3vD3XHhB5F5E5L5Y5T5Y5T5Y5T5Y5T" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('Прямоугольник.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .header, .footer {
+            background-color: rgba(27, 27, 27, 0.8);
+            color: white;
+        }
+        .header-inner {
+            background-color: #C21818;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .news-panel, .matches-sidebar {
+            background-color: rgba(36, 42, 55, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .news-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .news-item i {
+            margin-right: 10px;
+            color: #C21818;
+        }
+        .news-card {
+            background-color: #2c2f33;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: white;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .news-card:hover {
+            transform: scale(1.05);
+            background-color: rgba(44, 47, 51, 0.9);
+        }
+        .news-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .news-card h6 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .container-fluid {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+        .age-restriction {
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+            background-color: rgba(45, 54, 65, 0.9);
+            border-radius: 8px;
+        }
+        .btn-show-more, .btn-all-matches, .btn-view-all {
+            background-color: transparent;
+            border: 2px solid #C21818;
+            color: #C21818;
+            margin-top: 15px;
+            width: 100%;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-show-more:hover, .btn-all-matches:hover, .btn-view-all:hover {
+            background-color: #C21818;
+            color: white;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .nav-button {
+            padding: 10px 15px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-button:hover, .nav-button.active {
+            color: #C21818;
+            border-bottom: 2px solid #C21818;
+        }
+        .match-block {
+            background-color: #343a40;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .team-names {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+        }
+        .team-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .odds-block {
+            border: 2px solid yellow;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn-more {
+            background: none;
+            color: #C21818;
+            font-weight: bold;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-more:hover {
+            text-decoration: underline;
+        }
+        .matches-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .btn-cs2, .btn-news {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 5px 10px;
+            margin-right: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-cs2:hover, .btn-news:hover {
+            background-color: #C21818;
+            color: white;
+        }
+        .players-section {
+            background-color: rgba(36, 42, 55, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .player-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #2c2f33;
+            border-radius: 5px;
+            padding: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .player-card:hover {
+            transform: scale(1.05);
+            background-color: rgba(44, 47, 51, 0.9);
+        }
+        .player-card img {
+            width: 50px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .player-info {
+            flex-grow: 1;
+        }
+        .player-info h6 {
+            margin: 0;
+            font-weight: bold;
+            color: white;
+        }
+        .player-game {
+            color: gray;
+        }
+        .transfer-info {
+            color: white;
+            font-weight: bold;
+        }
+        .transfer-date {
+            color: white;
+            font-weight: bold;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #C21818;
+        }
+        .footer {
+            padding: 10px 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 header-inner py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="logo.jpg" alt="Лого" class="me-3" style="width: 50px; height: auto;">
+                        <nav class="nav">
+                            <a class="nav-link" href="#">Главная страница</a>
+                            <a class="nav-link" href="#">Матч</a>
+                            <a class="nav-link" href="#">Команда и игроки</a>
+                        </nav>
+                    </div>
+                    <a href="#" class="btn btn-light">Вход</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-10 col-xl-8">
+            <div class="news-panel">
+                <h5>Главные новости</h5>
+                <div class="news-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>15:00 - Новость 4: Краткое описание новости.</span>
+                </div>
+                <div class="news-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>14:00 - Новость 3: Краткое описание новости.</span>
+                </div>
+                <div class="news-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>13:00 - Новость 2: Краткое описание новости.</span>
+                </div>
+                <div class="news-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>12:00 - Новость 1: Краткое описание новости.</span>
+                </div>
+            </div>
+            <div class="news-panel">
+                <div class="nav-buttons">
+                    <div class="nav-button active">Рекомендации</div>
+                    <div class="nav-button">Свежие</div>
+                    <div class="nav-button">Обсуждаемое</div>
+                    <div class="nav-button">Моя лента</div>
+                    <button class="btn btn-danger">Настроить ленту новостей</button>
+                </div>
+                <div class="news-card">
+                    <h6>Заголовок новости 1</h6>
+                    <img src="1.jpg" alt="Новость 1">
+                    <p>Краткое описание новости 1. Здесь можно добавить больше информации о новости.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>15:00</span>
+                        <div>
+                            <button class="btn btn-news btn-sm">Новость</button>
+                            <button class="btn btn-cs2 btn-sm">CS2</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <h6>Заголовок новости 2</h6>
+                    <img src="1.jpg" alt="Новость 2">
+                    <p>Краткое описание новости 2. Здесь можно добавить больше информации о новости.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>14:00</span>
+                        <div>
+                            <button class="btn btn-news btn-sm">Новость</button>
+                            <button class="btn btn-cs2 btn-sm">CS2</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <h6>Заголовок новости 3</h6>
+                    <img src="1.jpg" alt="Новость 3">
+                    <p>Краткое описание новости 3. Здесь можно добавить больше информации о новости.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>13:00</span>
+                        <div>
+                            <button class="btn btn-news btn-sm">Новость</button>
+                            <button class="btn btn-cs2 btn-sm">CS2</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <h6>Заголовок новости 4</h6>
+                    <img src="1.jpg" alt="Новость 4">
+                    <p>Краткое описание новости 4. Здесь можно добавить больше информации о новости.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>12:00</span>
+                        <div>
+                            <button class="btn btn-news btn-sm">Новость</button>
+                            <button class="btn btn-cs2 btn-sm">CS2</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <h6>Заголовок новости 5</h6>
+                    <img src="1.jpg" alt="Новость 5">
+                    <p>Краткое описание новости 5. Здесь можно добавить больше информации о новости.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>11:00</span>
+                        <div>
+                            <button class="btn btn-news btn-sm">Новость</button>
+                            <button class="btn btn-cs2 btn-sm">CS2</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-show-more">Показать еще</button>
+            </div>
+        </div>
+        <div class="col-md-4 d-none d-md-block">
+            <div class="matches-sidebar">
+                <h5 class="matches-title">МАТЧИ</h5>
+                <div class="matches-nav">
+                    <div class="nav-button active">Прошедшие</div>
+                    <div class="nav-button">Текущие</div>
+                    <div class="nav-button">Будущие</div>
+                </div>
+                <hr style="border: 1px solid white;">
+                <div class="match-block">
+                    <div class="team-names">
+                        <span class="team-name">Команда A</span>
+                        <span class="team-name">Команда B</span>
+                    </div>
+                    <div class="odds-block">2.70</div>
+                    <span class="match-time">15:00</span>
+                    <button class="btn-more">Подробнее</button>
+                </div>
+                <div class="match-block">
+                    <div class="team-names">
+                        <span class="team-name">Команда C</span>
+                        <span class="team-name">Команда D</span>
+                    </div>
+                    <div class="odds-block">1.90</div>
+                    <span class="match-time">17:00</span>
+                    <button class="btn-more">Подробнее</button>
+                </div>
+                <div class="match-block">
+                    <div class="team-names">
+                        <span class="team-name">Команда E</span>
+                        <span class="team-name">Команда F</span>
+                    </div>
+                    <div class="odds-block">3.10</div>
+                    <span class="match-time">19:00</span>
+                    <button class="btn-more">Подробнее</button>
+                </div>
+                <button class="btn btn-all-matches">ВСЕ МАТЧИ</button>
+            </div>
+            <div class="players-section mt-4">
+                <h5 style="font-weight: bold; color: white;">Игроки</h5>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="player-card">
+                            <img src="NoneAvatar.jpg" alt="Игрок 1">
+                            <div class="player-info">
+                                <h6>Игрок 1</h6>
+                                <div class="player-game">CS2</div>
+                            </div>
+                            <div class="transfer-info">
+                                NAVI
+                                <div class="transfer-date">20.12</div>
+                            </div>
+                        </div>
+                        <div class="player-card">
+                            <img src="NoneAvatar.jpg" alt="Игрок 2">
+                            <div class="player-info">
+                                <h6>Игрок 2</h6>
+                                <div class="player-game">CS2</div>
+                            </div>
+                            <div class="transfer-info">
+                                NAVI
+                                <div class="transfer-date">20.12</div>
+                            </div>
+                        </div>
+                        <div class="player-card">
+                            <img src="NoneAvatar.jpg" alt="Игрок 3">
+                            <div class="player-info">
+                                <h6>Игрок 3</h6>
+                                <div class="player-game">CS2</div>
+                            </div>
+                            <div class="transfer-info">
+                                NAVI
+                                <div class="transfer-date">20.12</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-view-all">Смотреть ВСЕ</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-4 py-3">
+    <div class="container-fluid text-center footer-content">
+        <p>Разработчиком сайта является ООО «asffa»</p>
+        <div class="social-icons mb-2">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="age-restriction mb-2">16+</div>
+        <a href="#" class="btn btn-light mt-2">Документы</a>
+        
+        <div class="footer-links mt-3">
+            <a href="#">Политика конфиденциальности</a> 
+            <a href="#">Условия использования</a> 
+            <a href="#">Контакты</a>
+        </div>
+
+        <div class="footer-info mt-3">
+            <p>© 2023 Все права защищены</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-0n3b3R9tV1v6f5U1X1d5G1q5g5H4Q4G5e5T5g5D5g5H4Q4G5e5T5g5D5g5H4Q4" crossorigin="anonymous"></script>
+</body>
+</html>
